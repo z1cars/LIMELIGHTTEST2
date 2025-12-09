@@ -38,7 +38,7 @@
         :root[data-theme='dark'] {
             --primary-color: #1a1a1a;
             --secondary-color: #2c2c2c;
-            --text-color: #ccc;
+            --text-color: #e0e0e0;
             --light-gray: #3a3a3a;
             --border-color: #444;
             --footer-bg: #111;
@@ -46,19 +46,27 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background-color: var(--primary-color); color: var(--text-color); line-height: 1.7; transition: background-color 0.3s, color 0.3s; }
+        
         .page-wrapper { display: flex; justify-content: center; }
         .main-container { max-width: 1400px; width: 100%; display: grid; grid-template-columns: 1fr 800px 1fr; gap: 2rem; padding: 0 20px; }
         .left-sidebar, .right-sidebar { padding-top: 120px; }
         .sticky-sidebar-item { position: sticky; top: 120px; }
+        
         a { color: var(--text-color); text-decoration: none; transition: color 0.3s ease; }
         a:hover { color: var(--accent-color); }
-        .reading-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent-color); z-index: 10000; transform-origin: left; transform: scaleX(0); transition: transform 0.1s linear; }
-        .header { padding: 15px 0; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; background-color: var(--primary-color); z-index: 100; }
+        
+        .reading-progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-color); z-index: 10000; transform-origin: left; transform: scaleX(0); transition: transform 0.1s linear; }
+        
+        /* Header */
+        .header { padding: 15px 0; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; background-color: var(--primary-color); z-index: 100; transition: box-shadow 0.3s; }
+        .header.scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .site-title img { max-height: 65px; width: auto; }
+        .site-title img { max-height: 50px; width: auto; } /* Optimized for mobile */
+        
+        /* Navigation */
         .nav-menu { display: flex; list-style: none; align-items: center; }
         .nav-item { margin: 0 15px; position: relative; }
-        .nav-link { font-weight: 500; display: flex; align-items: center; gap: 5px; }
+        .nav-link { font-weight: 500; display: flex; align-items: center; gap: 5px; padding: 5px; }
         .dropdown { position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: var(--card-shadow); border-radius: 6px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 100; border: 1px solid var(--border-color); }
         .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
         .dropdown-item { display: block; padding: 10px 15px; color: var(--text-color); transition: background-color 0.2s; }
@@ -68,63 +76,80 @@
         /* Article Styles */
         .article-page { margin: 40px 0; }
         .article-meta { margin-bottom: 30px; text-align: center; }
-        .category-tag { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--accent-color); margin-bottom: 15px; display: inline-block; }
-        .article-title { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 20px; line-height: 1.2; }
+        .category-tag { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--accent-color); margin-bottom: 15px; display: inline-block; font-weight: 700; }
+        
+        /* Responsive Title using Clamp */
+        .article-title { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(28px, 5vw, 42px); 
+            margin-bottom: 20px; 
+            line-height: 1.3; 
+        }
+        
         .author-profile { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .author-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
-        .featured-image { width: 100%; height: auto; max-height: 500px; object-fit: cover; margin-bottom: 30px; }
-        .article-body { font-size: 18px; line-height: 1.8; margin-bottom: 40px; font-family: 'Georgia', serif; }
-        .article-body p { margin-bottom: 20px; text-align: justify; }
-        .article-body h2, .article-body h3 { font-family: 'Playfair Display', serif; margin: 40px 0 20px; color: var(--accent-color); }
+        .author-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .featured-image { width: 100%; height: auto; max-height: 500px; object-fit: cover; margin-bottom: 30px; border-radius: 4px; }
+        
+        /* Typography Optimized for Reading */
+        .article-body { font-size: 19px; line-height: 1.8; margin-bottom: 40px; font-family: 'Georgia', serif; color: var(--text-color); }
+        .article-body p { margin-bottom: 24px; text-align: justify; }
+        .article-body h2, .article-body h3 { font-family: 'Playfair Display', serif; margin: 40px 0 20px; color: var(--accent-color); line-height: 1.3; }
         .article-body h2 { font-size: 28px; }
-        .article-body blockquote { border-left: 4px solid var(--limelight-purple); padding-left: 20px; margin: 25px 0; font-style: italic; color: #555; font-size: 20px; }
-        .article-body img { max-width: 100%; height: auto; margin: 20px auto; display: block; }
+        .article-body blockquote { border-left: 4px solid var(--limelight-purple); padding-left: 20px; margin: 25px 0; font-style: italic; color: #666; font-size: 20px; background: var(--secondary-color); padding: 20px; border-radius: 0 8px 8px 0; }
+        .article-body img { max-width: 100%; height: auto; margin: 25px auto; display: block; border-radius: 4px; }
 
-        /* Left Sidebar Content */
+        /* Left Sidebar & TOC */
         #toc-container { font-size: 14px; margin-bottom: 2rem; }
         #toc-container h4 { font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 16px; }
         #toc-container ul { list-style: none; padding-left: 0; }
         #toc-container ul li a { display: block; padding: 5px 0 5px 10px; border-left: 2px solid var(--border-color); color: #888; }
-        #toc-container ul li a.active { border-left-color: var(--accent-color); font-weight: 500; color: var(--text-color); }
-        #toc-container ul ul { padding-left: 15px; }
+        #toc-container ul li a.active { border-left-color: var(--accent-color); font-weight: 600; color: var(--text-color); }
+        
+        /* Mobile TOC Toggle */
+        .mobile-toc-toggle { display: none; background: var(--secondary-color); border: 1px solid var(--border-color); padding: 15px; margin-bottom: 20px; border-radius: 8px; cursor: pointer; width: 100%; text-align: left; font-weight: 500; align-items: center; justify-content: space-between; }
+        .mobile-toc-content { display: none; background: var(--primary-color); border: 1px solid var(--border-color); border-top: none; padding: 15px; border-radius: 0 0 8px 8px; margin-top: -5px; }
+        .mobile-toc-content ul { list-style: none; }
+        .mobile-toc-content li { margin-bottom: 10px; }
+
+        /* Floating Share */
         .floating-share { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         .floating-share .share-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 5px; }
-        .floating-share a { font-size: 18px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; }
+        .floating-share a { font-size: 18px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; background: var(--secondary-color); }
         .floating-share a:hover { transform: scale(1.15); }
         .share-fb { color: #1877F2; } .share-tw { color: #1DA1F2; } .share-wa { color: #25D366; } .share-em { color: #777; }
         .theme-toggle { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--border-color); border-radius: 50%; margin-top: 15px; }
         
-        /* New Author Box */
-        .author-bio-box { border: 1px solid #000; padding: 30px; text-align: center; margin: 60px 0 40px 0; }
-        .author-bio-box .author-title { text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-bottom: 20px; }
-        .author-bio-box img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
-        .author-bio-box h4 { font-family: 'Playfair Display', serif; font-size: 22px; }
-        .author-bio-box p { font-size: 15px; color: #666; max-width: 600px; margin: 10px auto 0; }
+        /* Author Box */
+        .author-bio-box { border: 1px solid var(--border-color); padding: 30px; text-align: center; margin: 60px 0 40px 0; background-color: var(--secondary-color); border-radius: 8px; }
+        .author-bio-box .author-title { text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-bottom: 20px; color: #666; }
+        .author-bio-box img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--primary-color); }
+        .author-bio-box h4 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 10px; }
+        .author-bio-box p { font-size: 15px; color: #666; max-width: 600px; margin: 0 auto; }
         
         /* Bottom Share */
-        .bottom-share-bar { display: flex; align-items: center; gap: 20px; margin: 40px 0; padding-bottom: 40px; border-bottom: 1px solid var(--border-color); }
+        .bottom-share-bar { display: flex; align-items: center; gap: 20px; margin: 40px 0; padding-bottom: 40px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .bottom-share-bar span { font-weight: 500; }
-        .bottom-share-bar a { font-size: 22px; }
+        .bottom-share-bar a { font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--secondary-color); border-radius: 50%; }
         
-        /* Enhanced Related Articles */
+        /* Related Articles */
         .related-articles { margin: 40px 0; }
-        .related-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 20px; }
+        .related-title { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 25px; border-left: 4px solid var(--accent-color); padding-left: 15px; }
         .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .related-card { display: flex; flex-direction: column; border: 1px solid var(--border-color); transition: all 0.3s ease; }
+        .related-card { display: flex; flex-direction: column; border: 1px solid var(--border-color); transition: all 0.3s ease; border-radius: 6px; overflow: hidden; background: var(--primary-color); }
         .related-card:hover { transform: translateY(-5px); box-shadow: var(--card-hover-shadow); }
-        .related-card img { width: 100%; height: 150px; object-fit: cover; }
+        .related-card img { width: 100%; height: 160px; object-fit: cover; }
         .related-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .related-card-content h5 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 10px; }
-        .related-excerpt { font-size: 14px; color: #666; margin-bottom: 15px; flex-grow: 1; }
+        .related-card-content h5 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 10px; line-height: 1.4; }
+        .related-excerpt { font-size: 14px; color: #666; margin-bottom: 15px; flex-grow: 1; line-height: 1.6; }
         .related-card-author { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #666; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
         .related-card-author img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
         
-        /* Back to Top Button */
-        #backToTopBtn { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--accent-color); color: white; border: none; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 100; opacity: 0; transition: opacity 0.3s, transform 0.3s; }
+        /* Back to Top */
+        #backToTopBtn { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--accent-color); color: white; border: none; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 100; opacity: 0; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         #backToTopBtn.show { opacity: 1; display: flex; }
 
-        /* Restored Footer */
-        .site-footer { background-color: var(--footer-bg); color: var(--footer-text); padding: 60px 0 0; font-size: 15px; }
+        /* Footer */
+        .site-footer { background-color: var(--footer-bg); color: var(--footer-text); padding: 60px 0 0; font-size: 15px; margin-top: 60px; }
         .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 20px 40px 20px; border-bottom: 1px solid #444; }
         .footer-about .footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; color: white; margin-bottom: 15px; }
         .footer-links h4 { font-size: 18px; color: white; margin-bottom: 20px; }
@@ -132,34 +157,57 @@
         .footer-links ul li { margin-bottom: 12px; }
         .footer-links ul a { color: var(--footer-text); transition: color 0.2s; }
         .footer-links ul a:hover { color: white; }
-        #footerSubscribeForm { display: flex; }
-        #footerSubscribeForm input { flex-grow: 1; border: none; padding: 12px; background-color: #333; color: white; }
-        #footerSubscribeForm button { border: none; background-color: var(--accent-color); color: white; padding: 0 20px; cursor: pointer; }
+        #footerSubscribeForm { display: flex; flex-direction: column; gap: 10px; }
+        #footerSubscribeForm input { border: none; padding: 12px; background-color: #333; color: white; border-radius: 4px; }
+        #footerSubscribeForm button { border: none; background-color: var(--accent-color); color: white; padding: 12px; cursor: pointer; border-radius: 4px; font-weight: 600; }
         .footer-bottom { padding: 20px 0; text-align: center; font-size: 14px; }
 
-        /* Responsive */
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 1200px) {
             .main-container { grid-template-columns: 1fr 700px 1fr; }
         }
+        
         @media (max-width: 992px) {
-            .main-container { grid-template-columns: 1fr; }
-            .left-sidebar, .right-sidebar { display: none; }
+            .main-container { grid-template-columns: 1fr; padding: 0 15px; }
+            .left-sidebar, .right-sidebar { display: none; } /* Hide Sidebars */
+            .article-body { font-size: 18px; }
+            
+            /* Show Mobile TOC Button */
+            .mobile-toc-toggle { display: flex; }
+            
+            /* Footer */
             .footer-grid { grid-template-columns: 1fr 1fr; }
-            .mobile-nav-toggle { display: block; background: none; border: none; font-size: 24px; cursor: pointer; z-index: 1001; }
+            
+            /* Navigation */
+            .mobile-nav-toggle { display: block; background: none; border: none; font-size: 24px; cursor: pointer; z-index: 1001; padding: 5px; }
             .nav-container { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--primary-color); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
             .nav-container.active { display: block; }
             .nav-menu { display: none; flex-direction: column; align-items: flex-start; padding: 10px 0; }
-            .header-content .nav-menu { display: none; } /* Hide desktop menu */
             .header-content.mobile-active .nav-menu { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; background: var(--primary-color); width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
             .nav-item { margin: 0; width: 100%; border-left: none; border-bottom: 1px solid var(--border-color); }
-            .nav-link { padding: 15px 20px; width: 100%; justify-content: space-between; }
+            .nav-link { padding: 15px 20px; width: 100%; justify-content: space-between; font-size: 16px; }
             .dropdown { position: static; box-shadow: none; border: none; background: var(--secondary-color); padding-left: 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-            .nav-item.dropdown-active > .dropdown { max-height: 500px; /* Or a large enough value */ }
+            .nav-item.dropdown-active > .dropdown { max-height: 500px; }
         }
+        
         @media (max-width: 768px) {
-            .article-title { font-size: 32px; }
+            /* Better Reading Experience on Mobile */
+            .article-body p { 
+                text-align: left; /* Prevent 'rivers' of white space in justified text on small screens */
+                margin-bottom: 20px;
+            }
+            .article-body blockquote {
+                font-size: 18px;
+                padding-left: 15px;
+            }
             .related-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
+            
+            .featured-image { max-height: 300px; }
+            
+            /* Increase tap target sizes */
+            .bottom-share-bar { justify-content: center; gap: 15px; }
+            .bottom-share-bar a { width: 45px; height: 45px; font-size: 22px; }
         }
     </style>
 </head>
@@ -191,12 +239,13 @@
                     </div>
                 </div>
             </aside>
+            
             <main>
                 <div class="article-page" id="articleContainer">
                     </div>
             </main>
-            <aside class="right-sidebar">
-                </aside>
+            
+            <aside class="right-sidebar"></aside>
         </div>
     </div>
 
@@ -244,7 +293,48 @@
         const backToTopBtn = document.getElementById('backToTopBtn');
         const themeToggle = document.getElementById('themeToggle');
         
+        // --- IMPROVED FETCH FUNCTION (CLIENT-SIDE HYDRATION) ---
         async function fetchArticle() {
+            // CHECK: Did the Cloudflare Function already render this?
+            if (window.SERVER_PRELOADED) {
+                console.log("Page was pre-rendered by Server. Skipping DB fetch.");
+                
+                // 1. Setup Table of Contents (Extracts headers from the existing DOM)
+                setupTableOfContents();
+                
+                // 2. Setup Reading Progress
+                setupReadingProgress();
+                
+                // 3. Setup Share Links (Using data already in the DOM)
+                const articleTitle = document.querySelector('.article-title') ? document.querySelector('.article-title').textContent : document.title;
+                setupShareLinks({ title: articleTitle });
+
+                // 4. Fetch Related Articles
+                // Since we don't have the 'article' object from DB, we try to grab the Category ID/Slug from the link injected by Server
+                const categoryTag = document.querySelector('.category-tag');
+                if (categoryTag && categoryTag.href) {
+                    try {
+                        const urlParams = new URLSearchParams(new URL(categoryTag.href).search);
+                        const catSlug = urlParams.get('categories');
+                        
+                        if (catSlug) {
+                            // Resolve Slug to ID
+                            const { data: catData } = await supabaseClient.from('categories').select('id').eq('slug', catSlug).single();
+                            if (catData) {
+                                // We fetch related, but we might not know the current Article ID to exclude it
+                                // It's a small trade-off, or we could inject the ID as a data-attribute via server
+                                await fetchRelatedArticles(catData.id, -1); 
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Could not fetch related articles due to missing category info", e);
+                    }
+                }
+                
+                return; 
+            }
+
+            // --- Original Logic for Client-Side Rendering (Fallback) ---
             const { data: article, error } = await supabaseClient.from('posts').select(`*, authors(*), categories(*)`).eq('slug', postSlug).single();
             
             if (error || !article) {
@@ -270,6 +360,9 @@
                         <div>By <a href="/index.html?author=${article.authors.id}">${article.authors.full_name}</a></div>
                     </div>
                 </div>
+                
+                <div id="mobileTocContainer"></div>
+
                 <img src="${article.image_url}" alt="${article.title}" class="featured-image">
                 <div class="article-body" id="articleBody">${article.content}</div>
 
@@ -296,10 +389,25 @@
         }
         
         async function fetchRelatedArticles(categoryId, currentArticleId) {
+            // Updated limit to 3 to match grid
             const { data: related } = await supabaseClient.from('posts').select(`slug, title, image_url, excerpt, authors(id, full_name, avatar_url)`).eq('category_id', categoryId).neq('id', currentArticleId).order('created_at', { ascending: false }).limit(3);
+            
             const section = document.getElementById('relatedArticlesSection');
-            if (related && related.length > 0) {
-                section.innerHTML = `
+            // If the section doesn't exist (Server rendered), try to append it or find a placeholder
+            // But since our 'renderArticle' creates it, this usually runs after render.
+            // For SSR, we might need to append it manually if the server didn't send this section.
+            
+            let targetSection = section;
+            if (!targetSection && window.SERVER_PRELOADED) {
+                 targetSection = document.createElement('section');
+                 targetSection.className = 'related-articles';
+                 // Append before footer or after article body? 
+                 // It's safest to append to the articleContainer
+                 document.getElementById('articleContainer').appendChild(targetSection);
+            }
+
+            if (related && related.length > 0 && targetSection) {
+                targetSection.innerHTML = `
                     <h3 class="related-title">Related Articles</h3>
                     <div class="related-grid">
                         ${related.map(article => `
@@ -323,15 +431,17 @@
             const url = encodeURIComponent(window.location.href);
             const title = encodeURIComponent(article.title);
             
-            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-            document.getElementById('shareWhatsapp').href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
-            document.getElementById('shareEmail').href = `mailto:?subject=${title}&body=Check out this article: ${url}`;
+            const updateLink = (id, href) => { const el = document.getElementById(id); if(el) el.href = href; };
+
+            updateLink('shareFacebook', `https://www.facebook.com/sharer/sharer.php?u=${url}`);
+            updateLink('shareTwitter', `https://twitter.com/intent/tweet?url=${url}&text=${title}`);
+            updateLink('shareWhatsapp', `https://api.whatsapp.com/send?text=${title}%20${url}`);
+            updateLink('shareEmail', `mailto:?subject=${title}&body=Check out this article: ${url}`);
             
-            document.getElementById('bottomShareFacebook').href = document.getElementById('shareFacebook').href;
-            document.getElementById('bottomShareTwitter').href = document.getElementById('shareTwitter').href;
-            document.getElementById('bottomShareWhatsapp').href = document.getElementById('shareWhatsapp').href;
-            document.getElementById('bottomShareEmail').href = document.getElementById('shareEmail').href;
+            updateLink('bottomShareFacebook', `https://www.facebook.com/sharer/sharer.php?u=${url}`);
+            updateLink('bottomShareTwitter', `https://twitter.com/intent/tweet?url=${url}&text=${title}`);
+            updateLink('bottomShareWhatsapp', `https://api.whatsapp.com/send?text=${title}%20${url}`);
+            updateLink('bottomShareEmail', `mailto:?subject=${title}&body=Check out this article: ${url}`);
         }
 
         async function fetchDynamicMenus() {
@@ -397,32 +507,67 @@
         function setupTableOfContents() {
             const articleBody = document.getElementById('articleBody');
             const tocContainer = document.getElementById('toc-container');
-            if (!articleBody || !tocContainer) return;
+            const articleContainer = document.getElementById('articleContainer');
+            
+            if (!articleBody) return;
 
             const headings = articleBody.querySelectorAll('h2, h3');
             if (headings.length < 2) {
-                tocContainer.style.display = 'none';
+                if(tocContainer) tocContainer.style.display = 'none';
                 return;
             }
 
-            let tocHtml = '<h4>In This Article</h4><ul>';
-            let activeHeadings = new Map();
+            // 1. Build Desktop Sidebar TOC
+            if (tocContainer) {
+                let tocHtml = '<h4>In This Article</h4><ul>';
+                headings.forEach((heading, index) => {
+                    const id = `heading-${index}`;
+                    heading.id = id;
+                    const level = heading.tagName === 'H2' ? 1 : 2;
+                    tocHtml += `<li class="toc-level-${level}"><a href="#${id}">${heading.textContent}</a></li>`;
+                });
+                tocHtml += '</ul>';
+                tocContainer.innerHTML = tocHtml;
+            }
 
-            headings.forEach((heading, index) => {
-                const id = `heading-${index}`;
-                heading.id = id;
-                const level = heading.tagName === 'H2' ? 1 : 2;
+            // 2. Build Mobile Accordion TOC
+            // Logic: Insert before the Featured Image or Body
+            const existingMobileToc = document.getElementById('mobileTocContainer');
+            let mobileContainer = existingMobileToc;
+            
+            if (!mobileContainer && window.SERVER_PRELOADED) {
+                // If SSR didn't render the container, inject it
+                mobileContainer = document.createElement('div');
+                mobileContainer.id = 'mobileTocContainer';
+                const img = document.querySelector('.featured-image');
+                if (img) img.before(mobileContainer);
+                else articleBody.before(mobileContainer);
+            }
+            
+            if (mobileContainer && window.innerWidth < 992) {
+                let mobileHtml = `
+                    <div class="mobile-toc-toggle" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+                        <span><i class="fas fa-list-ul"></i> Jump to Section</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-toc-content"><ul>`;
                 
-                const listItem = document.createElement('li');
-                listItem.className = `toc-level-${level}`;
-                const link = document.createElement('a');
-                link.href = `#${id}`;
-                link.textContent = heading.textContent;
-                listItem.appendChild(link);
-                tocContainer.querySelector('ul').appendChild(listItem);
-                activeHeadings.set(heading, link);
+                headings.forEach((heading, index) => {
+                    // IDs are already set by loop above if Desktop ran, if not set them now
+                    if(!heading.id) heading.id = `heading-${index}`; 
+                    mobileHtml += `<li><a href="#${heading.id}" onclick="this.closest('.mobile-toc-content').style.display='none'">${heading.textContent}</a></li>`;
+                });
+                
+                mobileHtml += `</ul></div>`;
+                mobileContainer.innerHTML = mobileHtml;
+            }
+
+            // 3. Scroll Observer
+            const activeHeadings = new Map();
+            headings.forEach(h => {
+                const link = tocContainer ? tocContainer.querySelector(`a[href="#${h.id}"]`) : null;
+                if(link) activeHeadings.set(h, link);
             });
-            tocContainer.insertAdjacentHTML('afterbegin', '<h4>In This Article</h4><ul></ul>');
             
             const observer = new IntersectionObserver(entries => {
                  activeHeadings.forEach(link => link.classList.remove('active'));
@@ -445,8 +590,10 @@
                 
                 if (window.scrollY > 300) {
                     backToTopBtn.classList.add('show');
+                    document.querySelector('.header').classList.add('scrolled');
                 } else {
                     backToTopBtn.classList.remove('show');
+                    document.querySelector('.header').classList.remove('scrolled');
                 }
             });
         }
@@ -454,14 +601,18 @@
         // --- Theme Toggle Logic ---
         const applyTheme = (theme) => {
             document.documentElement.setAttribute('data-theme', theme);
-            themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            if(themeToggle) themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             localStorage.setItem('limelight-theme', theme);
         };
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            applyTheme(newTheme);
-        });
+        
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                applyTheme(newTheme);
+            });
+        }
+        
         const savedTheme = localStorage.getItem('limelight-theme') || 'light';
         applyTheme(savedTheme);
         
